@@ -7,6 +7,12 @@ import com.ubs.hometest.othello.model.Color;
 import com.ubs.hometest.othello.model.Player;
 import com.ubs.hometest.othello.view.GameViewer;
 
+
+/**
+ * @author Haoliang Yu
+ *
+ * 2018Äê2ÔÂ13ÈÕ
+ */
 public class OthellGame implements Game {
 	
 	private Player player1;
@@ -18,6 +24,7 @@ public class OthellGame implements Game {
 	private Scanner scan = null;
 	private static final int[] X_COORDINATION = {-1, 0, 1};
 	private static final int[] Y_COORDINATION = {-1, 0, 1};
+	
 	public OthellGame(String playerName1, String playerName2) {
 		this.player1 = new Player(playerName1, Color.WHITE);
 		this.player2 = new Player(playerName2, Color.BLACK);
@@ -34,6 +41,10 @@ public class OthellGame implements Game {
 		this.board = new Board(boardSize,boardSize);
 	}
 	
+	
+	/* 
+	 * @see com.ubs.hometest.othello.controller.Game#playGame()
+	 */
 	public void playGame() {
 		round++;
 		while (!isGameOver()) {
@@ -58,7 +69,12 @@ public class OthellGame implements Game {
 		}
 	}
 	
-	protected int[] commandParser(Scanner in){
+	/**
+	 * parser input to row and column index
+	 * @param standard in from system.in
+	 * @return row and column info
+	 */
+	protected int[] commandParser(Scanner in) {
 		int[] parsed = new int[2];
 		int row;
 		int col;
@@ -80,6 +96,9 @@ public class OthellGame implements Game {
 		this.board.reset();
 	}
 	
+	/**
+	 * take turn
+	 */
 	private void swithPlayer() {
 		if (nextMover == this.player1) {
 			nextMover = this.player2;
@@ -88,10 +107,23 @@ public class OthellGame implements Game {
 		}
 	}
 	
+	/**
+	 * flip the pieces for currnt move
+	 * @param color
+	 * @param row
+	 * @param col
+	 */
 	private void flipPieces(Color color, int row, int col) {
-		
+		//Todo
 	}
 	
+	/**
+	 * check [-1,0] [-1,-1] [-1, 1] [0,-1] [0,1] [1,1] [1,0]  [1,-1]  those 8 directions
+	 * @param player
+	 * @param row
+	 * @param col
+	 * @return 
+	 */
 	private boolean isValidMove(Player player, int row, int col) {
 		
 		 boolean result=false;
@@ -122,10 +154,17 @@ public class OthellGame implements Game {
 		  return result;
 	}
 	
+	/**
+	 * round info 
+	 * @return
+	 */
 	public int getRoundCount() {
 		return this.round;
 	}
 
+	/* 
+	 * validate if game is over
+	 */
 	public boolean isGameOver() {
 		
 		return this.board.isFull();
